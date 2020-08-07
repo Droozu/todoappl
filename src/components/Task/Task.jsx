@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CompleteButton from "./CompleteButton";
+import EditButton from "./EditButton";
 
 const Task = (props) => {
   const { task, deleteTask, editTaskTitle, toggleEdit, toggleComplete } = props;
@@ -11,9 +12,6 @@ const Task = (props) => {
     setClassName(`${task.isCompleted ? 'completed' : ''}${task.isEditing ? 'editing' : ''}`);
   }, [task.isCompleted, task.isEditing]);
 
-  const EditButton = () => {
-    return <button id={task.id} type="button" className="icon icon-edit" name="isEditing" onClick={toggleEdit} />;
-  };
   const DeleteButton = () => {
     return <button id={task.id} className="icon icon-destroy" onClick={deleteTask} />;
   };
@@ -54,7 +52,10 @@ const Task = (props) => {
             toggleComplete={toggleComplete}
         />
         <Label />
-        <EditButton />
+        <EditButton
+            id={task.id}
+            toggleEdit={toggleEdit}
+        />
         <DeleteButton />
       </div>
       {className === 'editing' && <EditTaskForm />}
