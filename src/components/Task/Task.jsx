@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import CompleteButton from "./CompleteButton";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
-
+import Label from "./Label";
+import EditTaskForm from "./EditTaskForm";
 
 const Task = (props) => {
   const { task, deleteTask, editTaskTitle, toggleEdit, toggleComplete } = props;
@@ -14,34 +15,6 @@ const Task = (props) => {
     setClassName(`${task.isCompleted ? 'completed' : ''}${task.isEditing ? 'editing' : ''}`);
   }, [task.isCompleted, task.isEditing]);
 
-  const EditTaskForm = () => {
-    const [taskValue, setTaskValue] = useState(task.title);
-
-    function handleChange(event) {
-      setTaskValue(event.target.value);
-    }
-
-    function handleSubmit(event) {
-      editTaskTitle(event, taskValue);
-      toggleEdit(event);
-      event.preventDefault();
-    }
-
-    return (
-      <form id={task.id} onSubmit={handleSubmit}>
-        <input type="text" className="edit" value={taskValue} onChange={handleChange} />
-      </form>
-    );
-  };
-  const Label = () => {
-    return (
-      <label>
-        <span className="description">{task.title}</span>
-        <span className="created">{task.date}</span>
-      </label>
-    );
-  };
-
   return (
     <li key={task.id} className={className}>
       <div className="view">
@@ -50,7 +23,11 @@ const Task = (props) => {
             isCompleted={task.isCompleted}
             toggleComplete={toggleComplete}
         />
-        <Label />
+        <Label
+            date={task.date}
+            title={task.title}
+
+        />
         <EditButton
             id={task.id}
             toggleEdit={toggleEdit}
@@ -60,7 +37,13 @@ const Task = (props) => {
             deleteTask={deleteTask}
         />
       </div>
-      {className === 'editing' && <EditTaskForm />}
+      {className === 'editing' &&
+      <EditTaskForm
+          id={task.id}
+          title={task.title}
+          editTaskTitle={editTaskTitle}
+          toggleEdit={toggleEdit}
+      />}
     </li>
   );
 };
@@ -73,10 +56,9 @@ Task.propTypes = {
     isCompleted: PropTypes.bool,
     isEditing: PropTypes.bool,
   }).isRequired,
-  deleteTask: PropTypes.func,
-  toggleChange: PropTypes.func,
-  toggleComplete: PropTypes.func,
-  editTaskTitle: PropTypes.func,
+  deleteTask: PropTypes.func.isRequired,
+  toggleComplete: PropTypes.func.isRequired,
+  editTaskTitle: PropTypes.func.isRequired,
 };
 
 export default Task;
