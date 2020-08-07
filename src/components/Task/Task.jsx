@@ -7,40 +7,40 @@ import Label from "./Label";
 import EditTaskForm from "./EditTaskForm";
 
 const Task = (props) => {
-  const { task, deleteTask, editTaskTitle, toggleEdit, toggleComplete } = props;
+  const {
+    task,
+    deleteTask,
+    editTaskTitle,
+    toggleEdit,
+    toggleComplete
+  } = props;
+
+  const {
+    id,
+    title,
+    date,
+    isCompleted,
+    isEditing
+  } = task;
 
   const [className, setClassName] = useState('');
 
   React.useEffect(() => {
-    setClassName(`${task.isCompleted ? 'completed' : ''}${task.isEditing ? 'editing' : ''}`);
-  }, [task.isCompleted, task.isEditing]);
+    setClassName(`${isCompleted ? 'completed' : ''}${isEditing ? 'editing' : ''}`);
+  }, [isCompleted, isEditing]);
 
   return (
-    <li key={task.id} className={className}>
+    <li key={id} className={isCompleted ? 'completed' : ''}>
       <div className="view">
-        <CompleteButton
-            id={task.id}
-            isCompleted={task.isCompleted}
-            toggleComplete={toggleComplete}
-        />
-        <Label
-            date={task.date}
-            title={task.title}
-
-        />
-        <EditButton
-            id={task.id}
-            toggleEdit={toggleEdit}
-        />
-        <DeleteButton
-            id={task.id}
-            deleteTask={deleteTask}
-        />
+        <CompleteButton id={id} isCompleted={isCompleted} toggleComplete={toggleComplete} />
+        <Label date={date} title={title} />
+        <EditButton id={id} toggleEdit={toggleEdit} />
+        <DeleteButton id={id} deleteTask={deleteTask} />
       </div>
       {className === 'editing' &&
       <EditTaskForm
-          id={task.id}
-          title={task.title}
+          id={id}
+          title={title}
           editTaskTitle={editTaskTitle}
           toggleEdit={toggleEdit}
       />}
@@ -58,6 +58,7 @@ Task.propTypes = {
   }).isRequired,
   deleteTask: PropTypes.func.isRequired,
   toggleComplete: PropTypes.func.isRequired,
+  toggleEdit: PropTypes.func.isRequired,
   editTaskTitle: PropTypes.func.isRequired,
 };
 
