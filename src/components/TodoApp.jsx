@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import Footer from './Footer';
 import NewTaskForm from './NewTaskForm';
 import TaskList from './TaskList';
-import Task from './Task';
+import Task from './Task/Task';
 import TasksFilter from './TasksFilter';
 
 const filterMap = {

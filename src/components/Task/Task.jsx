@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import CompleteButton from "./CompleteButton";
 
 const Task = (props) => {
   const { task, deleteTask, editTaskTitle, toggleEdit, toggleComplete } = props;
@@ -10,25 +11,6 @@ const Task = (props) => {
     setClassName(`${task.isCompleted ? 'completed' : ''}${task.isEditing ? 'editing' : ''}`);
   }, [task.isCompleted, task.isEditing]);
 
-  const CompleteButton = () => {
-    const [isChecked, setIsChecked] = useState(task.isCompleted);
-
-    function handleChange(event) {
-      setIsChecked(!isChecked);
-      toggleComplete(event);
-    }
-
-    return (
-      <input
-        id={task.id}
-        className="toggle"
-        checked={isChecked}
-        type="checkbox"
-        name="isCompleted"
-        onChange={handleChange}
-      />
-    );
-  };
   const EditButton = () => {
     return <button id={task.id} type="button" className="icon icon-edit" name="isEditing" onClick={toggleEdit} />;
   };
@@ -66,7 +48,11 @@ const Task = (props) => {
   return (
     <li key={task.id} className={className}>
       <div className="view">
-        <CompleteButton />
+        <CompleteButton
+            id={task.id}
+            isCompleted={task.isCompleted}
+            toggleComplete={toggleComplete}
+        />
         <Label />
         <EditButton />
         <DeleteButton />
