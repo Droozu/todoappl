@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { v4 } from 'uuid';
-import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 
 const NewTaskForm = ({ addTask }) => {
@@ -15,29 +14,28 @@ const NewTaskForm = ({ addTask }) => {
     const newTask = {
       id: v4(),
       title: titleValue,
-      date: formatDistanceToNow(new Date()),
+      date: new Date(),
       isCompleted: false,
       isEditing: false,
     };
-
-    if (!newTask) return;
     addTask(newTask);
     setTitleValue('');
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <input className="new-todo" placeholder="What needs to be done?" onChange={handleChange} value={titleValue} />
+      <input
+          className="new-todo"
+          placeholder="What needs to be done?"
+          onChange={handleChange}
+          value={titleValue}
+      />
     </form>
   );
 };
 
 NewTaskForm.propTypes = {
-  addTask: PropTypes.func,
-};
-
-NewTaskForm.defaultProps = {
-  addTask: () => {},
+  addTask: PropTypes.func.isRequired,
 };
 
 export default NewTaskForm;

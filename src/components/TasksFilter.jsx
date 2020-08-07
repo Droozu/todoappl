@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import NewTaskForm from "./NewTaskForm";
 
 export default function TasksFilter({ filter, setFilter }) {
   const FilterButton = (props) => {

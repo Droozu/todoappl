@@ -11,9 +11,9 @@ const TodoApp = () => {
   const [filter, setFilter] = useState('All');
 
   const [todos, dispatch] = useReducer(todosReducer, [
-    { id: v4(), title: 'Completed task', date: 'created 17 seconds ago', isCompleted: true, isEditing: false },
-    { id: v4(), title: 'Editing task', date: 'created 5 minutes ago', isCompleted: false, isEditing: true },
-    { id: v4(), title: 'Active task', date: 'created 3 minutes ago', isCompleted: false, isEditing: false },
+    { id: v4(), title: 'Completed task', date: new Date().setSeconds(new Date().getSeconds() - 17), isCompleted: true, isEditing: false },
+    { id: v4(), title: 'Editing task', date: new Date().setMinutes(new Date().getMinutes() - 5), isCompleted: false, isEditing: true },
+    { id: v4(), title: 'Active task', date: new Date().setMinutes(new Date().getMinutes() - 5), isCompleted: false, isEditing: false },
   ]);
 
   const filterMap = {
@@ -68,11 +68,10 @@ const TodoApp = () => {
       </header>
       <section className="main">
         <TaskList>
-          {todos.filter(filterMap[filter]).map((task, index) => {
+          {todos.filter(filterMap[filter]).map((task) => {
             return (
               <Task
                 key={task.id}
-                index={index}
                 task={task}
                 deleteTask={deleteTask}
                 toggleEdit={toggleEdit}

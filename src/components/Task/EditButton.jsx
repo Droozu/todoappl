@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 
 const EditButton = ({ id, toggleEdit }) => {
     return (
-        // eslint-disable-next-line jsx-a11y/control-has-associated-label
         <button
             id={id}
             type="button"
             className="icon icon-edit"
+            aria-label="Edit"
             name="isEditing"
             onClick={toggleEdit}
         />

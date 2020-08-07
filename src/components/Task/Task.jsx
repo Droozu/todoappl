@@ -24,13 +24,14 @@ const Task = (props) => {
   } = task;
 
   const [className, setClassName] = useState('');
-
   React.useEffect(() => {
     setClassName(`${isCompleted ? 'completed' : ''}${isEditing ? 'editing' : ''}`);
   }, [isCompleted, isEditing]);
 
+  // setClassName(`${isCompleted ? 'completed' : ''}${isEditing ? 'editing' : ''}`)
+
   return (
-    <li key={id} className={isCompleted ? 'completed' : ''}>
+    <li key={id} className={className}>
       <div className="view">
         <CompleteButton id={id} isCompleted={isCompleted} toggleComplete={toggleComplete} />
         <Label date={date} title={title} />
@@ -50,11 +51,11 @@ const Task = (props) => {
 
 Task.propTypes = {
   task: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    date: PropTypes.string,
-    isCompleted: PropTypes.bool,
-    isEditing: PropTypes.bool,
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    date: PropTypes.number.isRequired,
+    isCompleted: PropTypes.bool.isRequired,
+    isEditing: PropTypes.bool.isRequired,
   }).isRequired,
   deleteTask: PropTypes.func.isRequired,
   toggleComplete: PropTypes.func.isRequired,
