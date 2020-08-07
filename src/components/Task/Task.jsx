@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CompleteButton from "./CompleteButton";
 import EditButton from "./EditButton";
+import DeleteButton from "./DeleteButton";
+
 
 const Task = (props) => {
   const { task, deleteTask, editTaskTitle, toggleEdit, toggleComplete } = props;
@@ -12,9 +14,6 @@ const Task = (props) => {
     setClassName(`${task.isCompleted ? 'completed' : ''}${task.isEditing ? 'editing' : ''}`);
   }, [task.isCompleted, task.isEditing]);
 
-  const DeleteButton = () => {
-    return <button id={task.id} className="icon icon-destroy" onClick={deleteTask} />;
-  };
   const EditTaskForm = () => {
     const [taskValue, setTaskValue] = useState(task.title);
 
@@ -56,7 +55,10 @@ const Task = (props) => {
             id={task.id}
             toggleEdit={toggleEdit}
         />
-        <DeleteButton />
+        <DeleteButton
+            id={task.id}
+            deleteTask={deleteTask}
+        />
       </div>
       {className === 'editing' && <EditTaskForm />}
     </li>
