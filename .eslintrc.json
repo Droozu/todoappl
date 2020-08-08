@@ -54,6 +54,10 @@
         "assert": "either"
       }
     ],
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx"] }
+    ],
     "react/state-in-constructor": [
       "off"
     ],
@@ -62,6 +66,7 @@
     ],
     "react/static-property-placement": "off"
   },
+
   "settings": {
     "react": {
       "pragma": "React",

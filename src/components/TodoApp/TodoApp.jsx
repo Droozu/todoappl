@@ -1,20 +1,16 @@
 import React, { useState, useReducer } from 'react';
-import { v4 } from 'uuid';
 import Footer from '../Footer';
 import NewTaskForm from '../NewTaskForm';
 import TaskList from '../TaskList';
 import Task from '../Task/Task';
-import TasksFilter from '../TasksFilter';
-import todosReducer from "./todosReducer";
+import TasksFilter from '../TasksFilter/TasksFilter';
+import todosReducer from './todosReducer';
+import getInitialState from './initialState';
 
 const TodoApp = () => {
   const [filter, setFilter] = useState('All');
 
-  const [todos, dispatch] = useReducer(todosReducer, [
-    { id: v4(), title: 'Completed task', date: new Date().setSeconds(new Date().getSeconds() - 17), isCompleted: true, isEditing: false },
-    { id: v4(), title: 'Editing task', date: new Date().setMinutes(new Date().getMinutes() - 5), isCompleted: false, isEditing: true },
-    { id: v4(), title: 'Active task', date: new Date().setMinutes(new Date().getMinutes() - 5), isCompleted: false, isEditing: false },
-  ]);
+  const [todos, dispatch] = useReducer(todosReducer, null, getInitialState);
 
   const filterMap = {
     All: () => true,
@@ -26,13 +22,11 @@ const TodoApp = () => {
 
   function addTask(newTask) {
     dispatch({ type: 'add', newTask });
-
   }
 
   function deleteTask(event) {
     const { id } = event.target;
     dispatch({ type: 'delete', id });
-
   }
 
   function editTaskTitle(event, newTitle) {
@@ -42,23 +36,17 @@ const TodoApp = () => {
 
   function toggleEdit(event) {
     const { id } = event.target;
-
-    if (todos.filter((item) => item.id === id)[0].isCompleted) return;
     dispatch({ type: 'toggleEdit', id });
-
-
   }
 
   function toggleComplete(event) {
     const { id } = event.target;
     dispatch({ type: 'toggleComplete', id });
-
   }
 
   function clearAllCompleted(event) {
     event.preventDefault();
     dispatch({ type: 'clearCompleted' });
-
   }
 
   return (

@@ -8,5 +8,5 @@ const TaskList = ({ children }) => {
 export default TaskList;
 
 TaskList.propTypes = {
-  children: PropTypes.array.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };

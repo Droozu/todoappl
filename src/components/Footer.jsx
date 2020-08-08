@@ -14,14 +14,9 @@ const Footer = ({ activeCount, clearAllCompleted, children }) => {
 };
 
 Footer.propTypes = {
-  children: PropTypes.element,
-  activeCount: PropTypes.number,
-  clearAllCompleted: PropTypes.func,
-};
-Footer.defaultProps = {
-  children: [],
-  activeCount: 0,
-  clearAllCompleted: () => {},
+  children: PropTypes.element.isRequired,
+  activeCount: PropTypes.number.isRequired,
+  clearAllCompleted: PropTypes.func.isRequired,
 };
 
 export default Footer;

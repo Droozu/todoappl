@@ -11,6 +11,7 @@ const NewTaskForm = ({ addTask }) => {
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (!titleValue) return;
     const newTask = {
       id: v4(),
       title: titleValue,
@@ -24,12 +25,7 @@ const NewTaskForm = ({ addTask }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-          className="new-todo"
-          placeholder="What needs to be done?"
-          onChange={handleChange}
-          value={titleValue}
-      />
+      <input className="new-todo" placeholder="What needs to be done?" onChange={handleChange} value={titleValue} />
     </form>
   );
 };
