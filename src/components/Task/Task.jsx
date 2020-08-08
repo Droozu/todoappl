@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import CompleteButton from "./CompleteButton";
 import EditButton from "./EditButton";
@@ -23,12 +23,9 @@ const Task = (props) => {
     isEditing
   } = task;
 
-  const [className, setClassName] = useState('');
-  React.useEffect(() => {
-    setClassName(`${isCompleted ? 'completed' : ''}${isEditing ? 'editing' : ''}`);
-  }, [isCompleted, isEditing]);
-
-  // setClassName(`${isCompleted ? 'completed' : ''}${isEditing ? 'editing' : ''}`)
+  let className = '';
+  if (isCompleted) className='completed';
+  if (isEditing) className='editing';
 
   return (
     <li key={id} className={className}>
@@ -53,7 +50,10 @@ Task.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    date: PropTypes.number.isRequired,
+    date: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.objectOf(Date),
+    ]).isRequired,
     isCompleted: PropTypes.bool.isRequired,
     isEditing: PropTypes.bool.isRequired,
   }).isRequired,

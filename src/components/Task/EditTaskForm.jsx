@@ -29,7 +29,7 @@ const EditTaskForm = ({ id, title, editTaskTitle, toggleEdit }) => {
 EditTaskForm.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    editTaskTitle: PropTypes.bool.isRequired,
+    editTaskTitle: PropTypes.func.isRequired,
     toggleEdit: PropTypes.func.isRequired,
 }
 

@@ -38,13 +38,14 @@ const TodoApp = () => {
   function editTaskTitle(event, newTitle) {
     const { id } = event.target;
     dispatch({ type: 'edit', id, newTitle });
-
   }
 
   function toggleEdit(event) {
     const { id } = event.target;
+
     if (todos.filter((item) => item.id === id)[0].isCompleted) return;
     dispatch({ type: 'toggleEdit', id });
+
 
   }
 

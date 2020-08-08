@@ -15,7 +15,10 @@ const Label = ({ title, date }) => {
 
 Label.propTypes = {
     title: PropTypes.string.isRequired,
-    date: PropTypes.number.isRequired,
+    date: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.objectOf(Date),
+    ]).isRequired,
 }
 
 export default Label;
